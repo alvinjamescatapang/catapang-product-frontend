@@ -9,7 +9,7 @@ export default function ProductList({ user, onLogout }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notice, setNotice] = useState('');
-  const [formFor, setFormFor] = useState(null); // null = closed, {} = add, product = edit
+  const [formFor, setFormFor] = useState(null); // null = closed, {} = add, product = editsss
 
   const load = useCallback(async () => {
     setLoading(true);
