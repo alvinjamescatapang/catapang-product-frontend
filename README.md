@@ -10,11 +10,12 @@ npm run dev              # http://localhost:5173
 ```
 If the API runs locally, set `ALLOWED_ORIGIN=http://localhost:5173` in the API `.env`.
 
-## Deploy (Render Static Site)
+## Deploy
 - Build command: `npm install && npm run build`
 - Publish directory: `dist`
-- Environment variable: `VITE_API_URL=https://<your-api>.onrender.com`
-Then put the static site's URL in the API's `ALLOWED_ORIGIN`.
+- Set `VITE_API_URL` in Vercel to the deployed LavaLust API origin, for example `https://catapang-alvin-james-lavalust.onrender.com`.
+- Set `ALLOWED_ORIGIN` in the API service to the deployed frontend origin, for example `https://catapang-product-frontend.vercel.app`.
+- Configure `JWT_SECRET` and `REFRESH_TOKEN_KEY` as separate random secrets in the API service, then redeploy both services after code changes.
 
 ## How auth works
 `api.js` stores the access + refresh tokens, adds `Authorization: Bearer ...` to each request, and when the 15-minute

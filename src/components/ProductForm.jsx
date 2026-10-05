@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { X } from 'lucide-react';
 import { createProduct, updateProduct, errorMessage } from '../api.js';
 
 const empty = { product_name: '', description: '', price: '', quantity: '' };
@@ -31,10 +32,13 @@ export default function ProductForm({ product, onSaved, onCancel }) {
 
   return (
     <div className="modal-backdrop" onClick={onCancel}>
-      <div className="card modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{editing ? 'Edit product' : 'Add product'}</h2>
+      <div className="modal" role="dialog" aria-modal="true" aria-labelledby="product-form-title" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-heading">
+          <div><span className="section-kicker">STOCKROOM / PRODUCT</span><h2 id="product-form-title">{editing ? 'Edit product' : 'Add a product'}</h2></div>
+          <button type="button" className="icon-button" onClick={onCancel} title="Close" aria-label="Close dialog"><X size={19} /></button>
+        </div>
         {error && <div className="alert error">{error}</div>}
-        <form onSubmit={submit}>
+        <form className="product-form" onSubmit={submit}>
           <label>Product name
             <input value={form.product_name} onChange={set('product_name')} maxLength={100} required autoFocus />
           </label>
@@ -49,9 +53,9 @@ export default function ProductForm({ product, onSaved, onCancel }) {
               <input type="number" min="0" step="1" value={form.quantity} onChange={set('quantity')} required />
             </label>
           </div>
-          <div className="actions">
-            <button type="button" className="secondary" onClick={onCancel}>Cancel</button>
-            <button disabled={busy}>{busy ? 'Saving…' : 'Save'}</button>
+          <div className="modal-actions">
+            <button type="button" className="button-quiet" onClick={onCancel}>Cancel</button>
+            <button className="button-primary" disabled={busy}>{busy ? 'Saving…' : editing ? 'Save changes' : 'Add product'}</button>
           </div>
         </form>
       </div>
